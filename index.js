@@ -1,22 +1,17 @@
-const express = require('express');
-const bodyParser = require('body-parser');
+// index.js
+'use strict';
+const BootBot = require('bootbot');
 
-const app = express();
+const verifyToken = 'pusher-bot';
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.get('/', (req, res) => {
-    let VERIFY_TOKEN = 'pusher-bot';
-    console.log('Req.query:', req.query);
-    let mode = req.query['hub.mode'];
-    let token = req.query['hub.verify_token'];
-    let challenge = req.query['hub.challenge'];
-
-    if (mode && token === VERIFY_TOKEN) {
-        res.status(200).send(challenge);
-    } else {
-    res.sendStatus(403);
-    }
+const bot = new BootBot({
+  accessToken: 'a6cc2f7cc1a753fad0ed97954408693f',
+  verifyToken,
+  appSecret: '825f0c9c4294a85f908075b957a38426'
 });
 
-app.listen(5000, () => console.log('Express server is listening on port 3000'));
+bot.on('message', (payload, chat) => {
+	const text = payload.message.text;
+	console.log(`The user said: ${text}`);
+});
+bot.start(5000);
