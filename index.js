@@ -11,7 +11,8 @@ const bot = new BootBot({
 });
 
 bot.on('message', (payload, chat) => {
-	const text = payload.message.text;
-	console.log(`The user said: ${text}`);
+    const text = payload.message.text;
+    const userId = payload.sender.id;
+    bot.say(userId, 'Hello World');
 });
 bot.start(3005);
