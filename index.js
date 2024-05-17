@@ -14,4 +14,4 @@ bot.on('message', (payload, chat) => {
 	const text = payload.message.text;
 	console.log(`The user said: ${text}`);
 });
-bot.start(5000);
+bot.start(3005);
